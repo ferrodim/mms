@@ -14,5 +14,9 @@ test('simple positions', () =>{
    expect(isLosePosition([4,4])).toBe(true);
    expect(isLosePosition([5,5])).toBe(true);
    
-   expect(isLosePosition([3,2,1])).toBe(true);
+   expect(isLosePosition([1,2,3])).toBe(true);
+
+   expect(isLosePosition([1,2,4])).toBe(false);
+
+   expect(isLosePosition([1,4,4])).toBe(false);
 });

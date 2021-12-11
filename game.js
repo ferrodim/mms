@@ -1,4 +1,3 @@
-
 const isLosePosition = require('./isLosePosition');
 const playerNames = ['Олень', 'Ельф'];
 const firstPlayer = 0;
