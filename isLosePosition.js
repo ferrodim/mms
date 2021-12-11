@@ -1,10 +1,11 @@
 const LOSE_POSITIONS = ['1', '1,1,1', '3,2,1'];
 const WIN_POSTITIONS = [''];
 const nextPositions = require('./nextPositions');
+const cachedValues = new Map();
 
 function isLosePosition(pos) {
-    let a = typeof pos === 'string' ? pos.split(',') : pos;
-    const s = a.sort().join(',');
+    let a = (typeof pos === 'string') ? pos.split(',').sort() : pos;
+    const s = a.join(',');
 
     if (LOSE_POSITIONS.includes(s)) {
         return true;
@@ -15,7 +16,7 @@ function isLosePosition(pos) {
     }
 
     // all 1's
-    if (a[0] === 1) {
+    if (a[a.length-1] === 1) {
         return !!(a.length % 2);
     }
 
@@ -24,12 +25,17 @@ function isLosePosition(pos) {
         return true;
     }
 
+    if (cachedValues.has(s)){
+        return cachedValues.get(s);
+    }
+
     // TODO: caching
 
     // deep calc
     let childs = nextPositions(s);
     let ans = !childs.some(isLosePosition);
-    console.log('deepTest', s, childs, ans);
+    cachedValues.set(s, ans);
+    //console.log('deepTest', s, childs, ans);
     return ans;
 }
 
